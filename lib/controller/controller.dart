@@ -46,14 +46,15 @@ class SqlController extends GetxController {
     });
   }
 
-  List<TodoModel> _list = [];
+  List<TodoModel> lists = [];
   void getAllData() async {
+    lists.clear();
     var allData = await database.query("todo");
     for (var i in allData) {
       debugPrint(i.toString());
-      _list.add(TodoModel.fromJson(i));
+      lists.add(TodoModel.fromJson(i));
     }
-    debugPrint("${_list.length.toString()} : size _list ");
+    debugPrint("${lists.length.toString()} : size _list ");
     debugPrint("${allData.toString()} : get data from database ");
     update();
   }
@@ -92,6 +93,22 @@ class SqlController extends GetxController {
   void deleteData() async {
     var deleteItem = await database.delete('todo', where: "id = ${1}");
     debugPrint("$deleteItem : delete Item from database ");
+    getAllData();
+  }
+
+  // add item todo
+  Future<void> addTodo(String T, String D, String M) async {
+    var insert = await database.insert(
+      "todo",
+      {
+        "title": T.toString(),
+        "description": D.toString(),
+        "time": M.toString(),
+        "favorite": 0,
+        "complete": 0,
+      },
+    );
+    debugPrint("$insert : add todo");
     getAllData();
   }
 }
