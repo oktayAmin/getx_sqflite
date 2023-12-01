@@ -12,17 +12,45 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                controller.deleteTheDatabase();
-              },
-              icon: Icon(Icons.remove))
+            onPressed: () {
+              controller.deleteTheDatabase();
+            },
+            icon: Icon(
+              color: Colors.white,
+              Icons.remove,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.insertData();
+            },
+            icon: Icon(
+              color: Colors.white,
+              Icons.add,
+            ),
+          ),
         ],
         title: Text('home', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue[600],
         centerTitle: true,
       ),
       body: Column(
-        children: [],
+        children: [
+          IconButton(
+            onPressed: () {
+              //
+              controller.updateData();
+            },
+            icon: Icon(Icons.share),
+          ),
+          IconButton(
+            onPressed: () {
+              //
+              controller.deleteData();
+            },
+            icon: Icon(Icons.delete),
+          ),
+        ],
       ),
     );
   }
